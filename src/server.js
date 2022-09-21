@@ -4,14 +4,16 @@ const express = require('express');
 
 const notFound = require('./error-handlers/404');
 const logger = require('./middleware/logger');
+const validator = require('./middleware/validator');
 const app = express(); 
 app.use(cors());
 app.use(express.json());
+app.use(logger);
 
-let people = {
-  id: 1,
-  name: 'Yams',
-};
+// let people = {
+//   id: 1,
+//   name: 'Yams',
+// };
 
 app.get('/', (request, response) => {
   try {
@@ -21,10 +23,16 @@ app.get('/', (request, response) => {
   }
 });
 
-app.get('/person', logger, (request, response) => {
-  response.send(people);
+app.get('/person',  validator, (request, response) => {
+  response.json({name : request.query.name});
 });
 
 app.use(notFound);
 
-module.exports = app;
+module.exports = {start: (port) => {
+  app.listen(port, () => {
+    console.log('App is running on port::' +port);
+  });  
+},
+app,
+};
