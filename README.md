@@ -3,7 +3,7 @@
 
 ## Live Deploy
 
-[Heroku](https://yamada-server-practice.herokuapp.com/)
+[Heroku](https://yamada-basic-express-server.herokuapp.com/)
 
 ## Deployment
 
